@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 public class RestfulTrackController {
 
+    @SuppressWarnings("CanBeFinal")
     @Autowired
     TrackService trackService;
 

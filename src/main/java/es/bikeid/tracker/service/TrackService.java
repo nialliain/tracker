@@ -10,8 +10,8 @@ import java.util.List;
 @Component
 public class TrackService {
 
-    private List<TrackPointConsumer> trackPointConsumers = new LinkedList<>();
-    private List<TrackPoint> trackPoints = new LinkedList<>();
+    private final List<TrackPointConsumer> trackPointConsumers = new LinkedList<>();
+    private final List<TrackPoint> trackPoints = new LinkedList<>();
     TrackPoint latest = null;
 
     public void addTrackPoint(TrackPoint trackPoint) {

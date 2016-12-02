@@ -16,16 +16,15 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Collections;
 
 @Component
 @EnableScheduling
 public class SpotServicePoller {
 
-    private static Log LOGGER = LogFactory.getLog(NotificationService.class);
-    private final String SPOT_URL = "https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0kh77fpkuvgEaVFm0LklfeKXetFB6Iqgr/message.json";
+    private static final Log LOGGER = LogFactory.getLog(NotificationService.class);
 
+    @SuppressWarnings("CanBeFinal")
     @Autowired
     TrackService trackService;
 
@@ -63,6 +62,7 @@ public class SpotServicePoller {
         LOGGER.info("Polling SPOT for new TrackPoints");
         TrackPoint latestPoint = trackService.getLatestPoint();
         RestTemplate restTemplate = new RestTemplate();
+        String SPOT_URL = "https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0kh77fpkuvgEaVFm0LklfeKXetFB6Iqgr/message.json";
         SpotMessageFeed result = restTemplate.getForObject(SPOT_URL, SpotMessageFeed.class);
         Collections.reverse(result.getResponse().getFeedMessageResponse().getMessages().getMessage());
         for (Message message : result.getResponse().getFeedMessageResponse().getMessages().getMessage()){

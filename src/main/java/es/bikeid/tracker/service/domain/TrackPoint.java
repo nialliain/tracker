@@ -5,9 +5,10 @@ import java.time.LocalDateTime;
 
 public class TrackPoint {
 
-    private BigDecimal lat, lon;
-    private LocalDateTime timeStamp;
-    private String messageType;
+    private final BigDecimal lat;
+    private final BigDecimal lon;
+    private final LocalDateTime timeStamp;
+    private final String messageType;
 
     public TrackPoint(BigDecimal lat, BigDecimal lon, LocalDateTime timeStamp, String messageType) {
         this.lat = lat;
