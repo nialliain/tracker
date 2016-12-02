@@ -12,7 +12,7 @@ public class FeedMessageResponse {
     private int totalCount;
     private int activityCount;
     private Messages messages;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public int getCount() {
         return count;

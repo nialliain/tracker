@@ -15,7 +15,7 @@ public class Feed {
     private int daysRange;
     private boolean detailedMessageShown;
     private String type;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public String getId() {
         return id;

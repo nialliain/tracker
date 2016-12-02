@@ -27,7 +27,7 @@ public class Message {
     private int hidden;
     private String messageContent;
     private int altitude;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public String getClientUnixTime() {
         return clientUnixTime;

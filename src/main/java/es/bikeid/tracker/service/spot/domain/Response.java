@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 public class Response {
 
     private FeedMessageResponse feedMessageResponse;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public FeedMessageResponse getFeedMessageResponse() {
         return feedMessageResponse;

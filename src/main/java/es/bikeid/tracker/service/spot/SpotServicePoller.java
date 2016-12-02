@@ -62,8 +62,8 @@ public class SpotServicePoller {
         LOGGER.info("Polling SPOT for new TrackPoints");
         TrackPoint latestPoint = trackService.getLatestPoint();
         RestTemplate restTemplate = new RestTemplate();
-        String SPOT_URL = "https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0kh77fpkuvgEaVFm0LklfeKXetFB6Iqgr/message.json";
-        SpotMessageFeed result = restTemplate.getForObject(SPOT_URL, SpotMessageFeed.class);
+        String spotUrl = "https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/0kh77fpkuvgEaVFm0LklfeKXetFB6Iqgr/message.json";
+        SpotMessageFeed result = restTemplate.getForObject(spotUrl, SpotMessageFeed.class);
         Collections.reverse(result.getResponse().getFeedMessageResponse().getMessages().getMessage());
         for (Message message : result.getResponse().getFeedMessageResponse().getMessages().getMessage()){
             TrackPoint receivedTrackPoint = message.getTrackPoint();

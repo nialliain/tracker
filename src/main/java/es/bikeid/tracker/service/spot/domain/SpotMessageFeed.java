@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 public class SpotMessageFeed {
 
     private Response response;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public Response getResponse() {
         return response;

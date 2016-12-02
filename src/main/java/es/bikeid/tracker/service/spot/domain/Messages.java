@@ -9,8 +9,8 @@ import javax.annotation.Generated;
 @Generated("org.jsonschema2pojo")
 public class Messages {
 
-    private List<Message> message = new ArrayList<Message>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private List<Message> message = new ArrayList<>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public List<Message> getMessage() {
         return message;
