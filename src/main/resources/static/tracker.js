@@ -1,36 +1,31 @@
-var style_blue = {strokeColor: "#0000CD", strokeOpacity: 0.5, strokeWidth: 4.5};
+var line_style = {strokeColor: "#cd0000", strokeOpacity: 0.75, strokeWidth: 5};
 var gridProjection = new OpenSpace.GridProjection();
+var size = new OpenLayers.Size(48,48);
+var offset = new OpenLayers.Pixel(-24,-24);
+var infoWindowAnchor = new OpenLayers.Pixel(36,0);
+var icon = new OpenSpace.Icon('img/marker.png', size, offset, null, infoWindowAnchor);
+//var popUpSize = new OpenLayers.Size(200,150);
 var stompClient = null;
 
 function initmapbuilder() {
     lastPoint = null
     osMap = new OpenSpace.Map('map', {resolutions: [2500, 1000, 500, 200, 100, 50, 25, 10, 5, 4, 2.5, 2, 1]} );
     loadHistory();
-    //startPullUpdates();
     startPushUpdates();
 }
 
 function loadHistory(){
     $.getJSON("/history", function(data, status){
-        var points = [];
-        var mapPoint;
         for( let point of data ){
-            mapPoint = gridProjection.getMapPointFromLonLat( new OpenLayers.LonLat(point.lon, point.lat) );
-            thisPoint = new OpenLayers.Geometry.Point( mapPoint.getEasting(), mapPoint.getNorthing() );
-            points.push( thisPoint );
+            processUpdate(point, 7);
         }
-        var lineString = new OpenLayers.Geometry.LineString( points );
-        var lineFeature = new OpenLayers.Feature.Vector(lineString, null, style_blue);
-        osMap.getVectorLayer().addFeatures([lineFeature]);
-        lastPoint = thisPoint;
-        osMap.setCenter( mapPoint, 7 );
     });
 }
 
 function startPullUpdates(){
-    $.getJSON("/latest.json", function(position, status){
+    $.getJSON("/latest", function(position, status){
         processUpdate(position);
-        setTimeout(startPullUpdates,10000);
+        setTimeout(startPullUpdates,60000);
     });
 }
 
@@ -44,14 +39,18 @@ function startPushUpdates() {
     });
 }
 
-function processUpdate( position ) {
+function processUpdate( position, scale ) {
     mapPoint = gridProjection.getMapPointFromLonLat( new OpenLayers.LonLat(position.lon, position.lat) );
     thisPoint = new OpenLayers.Geometry.Point( mapPoint.getEasting(), mapPoint.getNorthing() );
+    // Line
     if ( !!lastPoint && !thisPoint.equals(lastPoint) ) {
         var lineString = new OpenLayers.Geometry.LineString([thisPoint, lastPoint]);
-        var lineFeature = new OpenLayers.Feature.Vector(lineString, null, style_blue);
+        var lineFeature = new OpenLayers.Feature.Vector(lineString, null, line_style);
         osMap.getVectorLayer().addFeatures([lineFeature]);
-        osMap.setCenter( mapPoint );
     }
+    // Marker
+    osMap.createMarker(mapPoint, icon, null, null);
+    // Centre
+    osMap.setCenter( mapPoint, scale );
     lastPoint = thisPoint;
 }

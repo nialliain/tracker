@@ -1,7 +1,31 @@
 package es.bikeid.tracker.service.spot.domain;
 
-/**
- * Created by niall on 01/12/2016.
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Generated;
+
+@Generated("org.jsonschema2pojo")
 public class Messages {
+
+    private List<Message> message = new ArrayList<Message>();
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    public List<Message> getMessage() {
+        return message;
+    }
+
+    public void setMessage(List<Message> message) {
+        this.message = message;
+    }
+
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }
